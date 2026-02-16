@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -14,23 +14,30 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function ConsultationPage() {
+// --- INNER COMPONENT (Handles the logic) ---
+function ConsultationForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  // Get the tier they clicked on from the URL (e.g., ?tier=Enterprise)
   const initialTier = searchParams.get("tier") || "General Inquiry";
 
   const [formState, setFormState] = useState({
     email: "",
     phone: "",
     description: "",
-    attachmentUrl: "", // Matches your backend requirement for a URL string
+    attachmentUrl: "",
     tier: initialTier
   });
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Update form state if URL param changes
+  useEffect(() => {
+    if (initialTier) {
+        setFormState(prev => ({ ...prev, tier: initialTier }));
+    }
+  }, [initialTier]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -41,17 +48,16 @@ export default function ConsultationPage() {
     setStatus("loading");
     setErrorMessage("");
 
-    // 1. Construct the email body for the Business Owner to read
     const emailBody = `
-      NEW PROJECT INQUIRY
+      NEW INQUIRY: ${formState.tier.toUpperCase()}
       -------------------
-      Plan/Tier: ${formState.tier}
+      Type: ${formState.tier}
       
-      CLIENT DETAILS
+      CONTACT DETAILS
       Email: ${formState.email}
       Phone: ${formState.phone}
       
-      PROJECT DESCRIPTION
+      MESSAGE / DETAILS
       ${formState.description}
       
       ATTACHMENT
@@ -59,12 +65,14 @@ export default function ConsultationPage() {
     `;
 
     try {
-      // 2. Call your Django Endpoint
-      const response = await fetch("https://dankie.up.railway.app/api/send_custom_email", { // REPLACE with your actual Django URL
+      // Use Environment Variable for API URL
+      const apiUrl = "https://dankie.up.railway.app"; // Replace with your actual API URL or use process.env.NEXT_PUBLIC_API_URL
+      
+      const response = await fetch(`${apiUrl}/api/send_custom_email`, { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          to: "kgaogelodeveloper@gmail.com",  
+          to: "kgaogelodeveloper@gmail.com", 
           subject: `New Lead: ${formState.tier} - ${formState.email}`,
           body: emailBody,
           attachmentUrl: formState.attachmentUrl
@@ -85,7 +93,6 @@ export default function ConsultationPage() {
     }
   };
 
-  // --- SUCCESS VIEW (Animation) ---
   if (status === "success") {
     return (
       <main className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
@@ -105,7 +112,7 @@ export default function ConsultationPage() {
           
           <h2 className="text-3xl font-bold text-white mb-2 font-space">Received!</h2>
           <p className="text-slate-400 mb-8">
-            Your project details have been secured. Our engineering team will review your specs and respond within <span className="text-blue-400 font-bold">24 hours</span>.
+            Your inquiry has been secured. Our engineering team will review your details and respond within <span className="text-blue-400 font-bold">24 hours</span>.
           </p>
 
           <Link href="/">
@@ -118,7 +125,6 @@ export default function ConsultationPage() {
     );
   }
 
-  // --- FORM VIEW ---
   return (
     <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 md:p-8">
       <div className="w-full max-w-2xl">
@@ -133,7 +139,7 @@ export default function ConsultationPage() {
         >
           <div className="mb-8 border-b border-slate-800 pb-6">
             <h1 className="text-3xl md:text-4xl font-bold text-white font-space mb-2">
-              Let's Build It.
+              Let's Talk Business.
             </h1>
             <div className="flex items-center gap-2 text-blue-400 text-sm font-medium bg-blue-400/10 px-3 py-1.5 rounded-full w-fit">
               <Clock className="w-4 h-4" />
@@ -145,28 +151,19 @@ export default function ConsultationPage() {
             
             {/* Selected Tier */}
             <div>
-              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-bold">Selected Plan</label>
-             <select 
-  name="tier" 
-  value={formState.tier} 
-  onChange={handleChange}
-  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none appearance-none"
->
-  {/* Option 1: Clear outcome -> A simple site */}
-  <option value="The Digital Kickstart">I need a Simple Website (Startup Tier)</option>
-  
-  {/* Option 2: Clear outcome -> A bigger business site */}
-  <option value="Full Brand Ecosystem">I need a Full Business Website (Corporate Tier)</option>
-  
-  {/* Option 3: Clear outcome -> An App or System */}
-  <option value="SaaS & Mobile Apps">I need a Mobile App or Custom Software</option>
-  
-  {/* Option 4: Partnerships */}
-  <option value="Partnership Proposal">I want to discuss a Partnership</option>
-  
-  {/* Option 5: General */}
-  <option value="General Inquiry">General Question / Other</option>
-</select>
+              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-bold">Inquiry Type</label>
+              <select 
+                name="tier" 
+                value={formState.tier} 
+                onChange={handleChange}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none appearance-none"
+              >
+                <option value="The Digital Kickstart">I need a Simple Website (Startup Tier)</option>
+                <option value="Full Brand Ecosystem">I need a Full Business Website (Corporate Tier)</option>
+                <option value="SaaS & Mobile Apps">I need a Mobile App or Custom Software</option>
+                <option value="Partnership Proposal">I want to discuss a Partnership</option>
+                <option value="General Inquiry">General Question / Other</option>
+              </select>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -197,12 +194,12 @@ export default function ConsultationPage() {
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-bold">Project Description</label>
+              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-2 font-bold">Message / Description</label>
               <textarea 
                 name="description" 
                 required
                 rows={5}
-                placeholder="Tell us about your goals, features you need, or the problem you are solving..."
+                placeholder={formState.tier === 'Partnership Proposal' ? "Tell us how you would like to collaborate..." : "Tell us about your goals, features you need, or the problem you are solving..."}
                 value={formState.description}
                 onChange={handleChange}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white placeholder:text-slate-700 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all resize-none"
@@ -222,11 +219,10 @@ export default function ConsultationPage() {
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-white placeholder:text-slate-700 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
               />
               <p className="text-xs text-slate-600 mt-2">
-                *Since our secure server fetches files directly, please provide a direct link (Google Drive, Dropbox, etc.) if you have an RFP or spec sheet.
+                *Provide a direct link (Google Drive, Dropbox, etc.) for any RFPs, specs, or partnership decks.
               </p>
             </div>
 
-            {/* Error Message Display */}
             <AnimatePresence>
               {status === "error" && (
                 <motion.div 
@@ -252,7 +248,7 @@ export default function ConsultationPage() {
                 </>
               ) : (
                 <>
-                  Consult <Send className="w-4 h-4" />
+                  Submit Inquiry <Send className="w-4 h-4" />
                 </>
               )}
             </button>
@@ -261,5 +257,18 @@ export default function ConsultationPage() {
         </motion.div>
       </div>
     </main>
+  );
+}
+
+// --- MAIN PAGE (Wraps the form in Suspense) ---
+export default function ConsultationPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+         <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+      </div>
+    }>
+      <ConsultationForm />
+    </Suspense>
   );
 }
