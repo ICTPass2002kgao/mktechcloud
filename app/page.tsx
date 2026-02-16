@@ -22,31 +22,30 @@ import {
   Twitter,
   Instagram
 } from "lucide-react";
-import { Section } from "./components/ui/Section";
 
 // --- DATA ---
 const services = [
   {
     tier: "Startup / Entry-Level",
     title: "The Digital Kickstart",
-    price: "R1,500",
-    recurrence: "+ R450/pm",
+    price: "R1,500 - R2,500", // Updated to range based on your requirement
+    recurrence: "One-time", // Clarified
     description: "Perfect for hustlers and new startups. Get a professional Next.js footprint without the corporate price tag.",
     features: [
       "Standardized Next.js Blueprint",
       "Single Page / Landing Page",
       "AWS Cloud Hosting Included",
       "Basic SEO Optimization",
-      "Monthly Maintenance Included"
+      "Monthly Maintenance (Optional)"
     ],
     highlight: false,
-    icon: <Rocket className="w-6 h-6 text-blue-600" />,
+    icon: <Rocket className="w-8 h-8 text-blue-500" />, // Increased size slightly
   },
   {
     tier: "Enterprise / Corporate",
     title: "Full Brand Ecosystem",
-    price: "R8,500",
-    recurrence: "+ R850/pm",
+    price: "R8,500 - R15,000", // Updated to range based on your requirement
+    recurrence: "+ Maintenance",
     description: "For registered companies requiring bespoke design, advanced functionality, and deep SEO strategy.",
     features: [
       "Custom UI/UX Design",
@@ -56,13 +55,13 @@ const services = [
       "Priority Support SLA"
     ],
     highlight: true,
-    icon: <Server className="w-6 h-6 text-blue-600" />,
+    icon: <Server className="w-8 h-8 text-white" />, // Adjusted for highlighted card
   },
   {
     tier: "Custom Solutions",
     title: "SaaS & Mobile Apps",
-    price: "Custom",
-    recurrence: "Quote Based",
+    price: "Custom Quote",
+    recurrence: "Milestone Based",
     description: "Complex internal tools, Uber-like apps, or large scale e-commerce platforms.",
     features: [
       "Flutter Mobile Apps (iOS/Android)",
@@ -72,7 +71,7 @@ const services = [
       "Full Source Code Ownership"
     ],
     highlight: false,
-    icon: <Smartphone className="w-6 h-6 text-blue-400" />,
+    icon: <Smartphone className="w-8 h-8 text-blue-400" />,
   },
 ];
 
@@ -208,9 +207,9 @@ export default function Home() {
       </nav>
 
       {/* --- HERO SECTION --- */}
-      <section id="home" className="relative h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black">
+      <section id="home" className="relative min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black pt-20">
         <div className="absolute inset-0 bg-grid-slate-900/[0.04] -z-10" />
-        <div className="container px-4 mx-auto text-center z-10 pt-20"> 
+        <div className="container px-4 mx-auto text-center z-10"> 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -265,7 +264,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* --- ABOUT US (Small Team Section) --- */}
+      {/* --- ABOUT US --- */}
       <section className="py-20 bg-slate-900/50">
         <div className="container mx-auto px-4 text-center">
            <div className="inline-flex items-center gap-2 text-blue-600 font-semibold uppercase tracking-wider text-sm mb-6">
@@ -282,10 +281,10 @@ export default function Home() {
       {/* --- PROJECTS GRID --- */}
       <section id="projects" className="py-24 bg-slate-950 relative scroll-mt-20">
         <div className="container mx-auto px-4">
-          <Section className="mb-12">
+          <div className="mb-12">
             <h2 className="text-3xl md:text-5xl font-bold font-space text-white mb-4">Our Work</h2>
             <p className="text-slate-400">Deployed into the wild.</p>
-          </Section>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
@@ -334,11 +333,6 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-            
-            {/* <div className="border border-dashed border-slate-800 rounded-2xl flex flex-col items-center justify-center p-8 text-slate-600 min-h-[400px]">
-              <Rocket className="w-8 h-8 mb-4 opacity-50" />
-              <p className="font-medium">More Shipping Soon</p>
-            </div> */}
           </div>
         </div>
       </section>
@@ -367,21 +361,27 @@ export default function Home() {
       {/* --- PRICING SECTION --- */}
      <section id="services" className="py-24 bg-slate-950 scroll-mt-20">
       <div className="container mx-auto px-4">
-        <Section className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold font-space text-white mb-6">Choose Your Growth Tier</h2>
           <p className="text-slate-400">
             Whether you are a hustler just starting out or a registered corporate entity, we have a structure that fits.
           </p>
-        </Section>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Section key={index} className="flex h-full">
-              <div className={`flex flex-col p-8 rounded-2xl border transition-all w-full group relative overflow-hidden h-full ${
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className={`flex flex-col p-8 rounded-2xl border transition-all w-full group relative overflow-hidden h-full ${
                 service.highlight 
                   ? "bg-slate-900/80 border-blue-600 shadow-2xl shadow-blue-600/20" 
                   : "bg-slate-900 border-slate-800 hover:border-slate-600"
-              }`}>
+              }`}
+            >
                 
                 {service.highlight && (
                   <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
@@ -389,15 +389,20 @@ export default function Home() {
                   </div>
                 )}
 
-                <div className="mb-2 text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  {service.tier}
+                <div className="flex justify-between items-start mb-4">
+                    <div className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+                        {service.tier}
+                    </div>
+                    <div className={`p-2 rounded-lg ${service.highlight ? 'bg-blue-500/20' : 'bg-slate-800'}`}>
+                        {service.icon}
+                    </div>
                 </div>
                 
                 <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
                 
-                <div className="mb-6 flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-white">{service.price}</span>
-                  <span className="text-sm text-slate-400 font-medium">{service.recurrence}</span>
+                <div className="mb-6 flex flex-wrap items-baseline gap-2">
+                  <span className="text-2xl lg:text-3xl font-bold text-white">{service.price}</span>
+                  <span className="text-xs text-slate-400 font-medium whitespace-nowrap">{service.recurrence}</span>
                 </div>
 
                 <p className="text-slate-400 text-sm mb-8 min-h-[4rem] leading-relaxed">
@@ -419,12 +424,11 @@ export default function Home() {
                       ? "bg-gradient-to-r from-blue-600 to-blue-600 text-white hover:shadow-lg hover:scale-[1.02]" 
                       : "border border-slate-700 text-white hover:bg-white hover:text-slate-900"
                   }`}>
-                    {service.price === "Custom" ? "Request Quote" : "Consult"}
+                    {service.price === "Custom Quote" ? "Request Quote" : "Consult"}
                   </button>
                 </Link>
 
-              </div>
-            </Section>
+              </motion.div>
           ))}
         </div>
       </div>
@@ -434,8 +438,8 @@ export default function Home() {
       <footer id="contact" className="bg-slate-950 pt-20 border-t border-slate-900">
         <div className="container mx-auto px-4">
           
-          {/* CTA Box - Kept but refined */}
-          <Section className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-10 md:p-14 text-center relative overflow-hidden mb-20 shadow-2xl shadow-blue-900/20">
+          {/* CTA Box */}
+          <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-10 md:p-14 text-center relative overflow-hidden mb-20 shadow-2xl shadow-blue-900/20">
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold font-space text-white mb-6">Ready to digitize your business?</h2>
               <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
@@ -447,7 +451,7 @@ export default function Home() {
                 </button>
               </Link>
             </div>
-          </Section>
+          </div>
 
           {/* Main Footer Links */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 border-t border-slate-900 pt-12">
