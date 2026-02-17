@@ -48,34 +48,26 @@ function ConsultationForm() {
     setStatus("loading");
     setErrorMessage("");
 
-    const emailBody = `
-      NEW INQUIRY: ${formState.tier.toUpperCase()}
-      -------------------
-      Type: ${formState.tier}
-      
-      CONTACT DETAILS
-      Email: ${formState.email}
-      Phone: ${formState.phone}
-      
-      MESSAGE / DETAILS
-      ${formState.description}
-      
-      ATTACHMENT
-      ${formState.attachmentUrl || "No attachment provided"}
-    `;
-
     try {
-      // Use Environment Variable for API URL
-      const apiUrl = "https://dankie.up.railway.app"; // Replace with your actual API URL or use process.env.NEXT_PUBLIC_API_URL
-      
-      const response = await fetch(`${apiUrl}/api/send_custom_email`, { 
+      // UPDATED: Using FormSubmit.co AJAX Endpoint
+      const response = await fetch("https://formsubmit.co/ajax/9974b3e3c9b94efea1a2ae817e896401", { 
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
         body: JSON.stringify({
-          to: "kgaogelodeveloper@gmail.com", 
-          subject: `New Lead: ${formState.tier} - ${formState.email}`,
-          body: emailBody,
-          attachmentUrl: formState.attachmentUrl
+          // Special FormSubmit settings
+          _subject: `New Lead: ${formState.tier}`,
+          _template: "table", // Makes the email look cleaner
+          _captcha: "false",  // Optional: removes captcha if you want instant submission
+          
+          // Your actual form data
+          Inquiry_Type: formState.tier,
+          Email: formState.email,
+          Phone: formState.phone,
+          Message: formState.description,
+          Attachment_Link: formState.attachmentUrl || "No attachment provided"
         }),
       });
 
@@ -84,7 +76,7 @@ function ConsultationForm() {
       if (response.ok) {
         setStatus("success");
       } else {
-        throw new Error(data.error || "Failed to submit");
+        throw new Error(data.message || "Failed to submit");
       }
     } catch (error: any) {
       console.error("Submission Error:", error);
