@@ -60,7 +60,7 @@ const services = [
     tier: "Startup / Entry-Level",
     title: "The Digital Kickstart",
     price: "R1,500 - R2,500", 
-    recurrence: "One-time", 
+    recurrence: "One-time + Maintenance(R450-R750/month)", 
     description: "Perfect for hustlers and new startups. Get a professional Next.js footprint without the corporate price tag.",
     features: [
       "Standardized Next.js Blueprint",
@@ -76,7 +76,7 @@ const services = [
     tier: "Enterprise / Corporate",
     title: "Full Brand Ecosystem",
     price: "R8,500 - R15,000", 
-    recurrence: "+ Maintenance",
+    recurrence: "+ Maintenance(R1,200 - R2,500/month)",
     description: "For registered companies requiring bespoke design, advanced functionality, and deep SEO strategy.",
     features: [
       "Custom UI/UX Design",
@@ -96,6 +96,21 @@ const services = [
     description: "Complex internal tools, Uber-like apps, or large scale e-commerce platforms.",
     features: [
       "Flutter Mobile Apps (iOS/Android)",
+      "Django Backend Logic",
+      "Database Design (PostgreSQL)",
+      "Payment Gateway Integration",
+      "Full Source Code Ownership"
+    ],
+    highlight: false,
+    icon: <Smartphone className="w-8 h-8 text-blue-400" />,
+  },
+  {
+    tier: "Api Development",
+    title: "API & Backend Development",
+    price: "Custom Quote",
+    recurrence: "Milestone Based",
+    description: "Custom API development for mobile apps, web applications, and internal systems.",
+    features: [ 
       "Django Backend Logic",
       "Database Design (PostgreSQL)",
       "Payment Gateway Integration",
