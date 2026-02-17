@@ -175,8 +175,8 @@ export default function Home() {
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <Link href="#home" className="text-2xl font-bold font-space text-white tracking-tighter" aria-label="MK TechCloud (PTY) LTD Home">
-            MK<span className="text-blue-600">.</span>TECHCLOUD (PTY) LTD 
+          <Link href="#home" className="text-2xl font-bold font-space text-white tracking-tighter" aria-label="MK TechCloud Home">
+            MK<span className="text-blue-600">.</span>TECHCLOUD 
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -610,7 +610,7 @@ export default function Home() {
             <div className="space-y-4">
               <Link href="#home" className="text-2xl font-bold font-space text-white tracking-tighter">
                 MK<span className="text-blue-600">.</span>TECHCLOUD
-(PTY) LTD               </Link>
+              </Link>
               <p className="text-slate-400 text-sm leading-relaxed">
                 We engineer enterprise-grade digital ecosystems. Specialized in Next.js, Cloud Architecture, and High-Performance Web Apps.
               </p>
@@ -656,7 +656,7 @@ export default function Home() {
               <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-blue-600 shrink-0" />
-                  <span>admin@mktechcloud.(PTY) LTD co.za</span>
+                  <span>admin@mktechcloud.co.za</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0" />
@@ -669,7 +669,7 @@ export default function Home() {
           {/* Bottom Bar - Centered & Clean */}
           <div className="border-t border-slate-900 py-8 text-center">
             <p className="text-slate-500 text-sm">
-              &copy; {new Date().getFullYear()} MK TECHCLOUD (PTY) LTD (Pty) Ltd. All rights reserved. Registration: 2026/122679/07
+              &copy; {new Date().getFullYear()} MK TECHCLOUD (Pty) Ltd. All rights reserved. Registration: 2026/122679/07
             </p>
           </div>
         </div>
