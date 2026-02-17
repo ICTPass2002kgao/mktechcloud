@@ -669,7 +669,7 @@ export default function Home() {
           {/* Bottom Bar - Centered & Clean */}
           <div className="border-t border-slate-900 py-8 text-center">
             <p className="text-slate-500 text-sm">
-              &copy; {new Date().getFullYear()} MK TECHCLOUD (Pty) Ltd. All rights reserved. Registration: 2026/122679/07
+              &copy; {new Date().getFullYear()} MK TECHCLOUD (Pty) Ltd. All rights reserved.
             </p>
           </div>
         </div>
