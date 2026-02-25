@@ -624,7 +624,7 @@ export default function Home() {
             {/* Column 1: Brand */}
             <div className="space-y-4">
               <Link href="#home" className="text-2xl font-bold font-space text-white tracking-tighter">
-                MK<span className="text-blue-600">.</span>TECHCLOUD
+                MK<span className="text-blue-600">.</span>TECHCLOUD (LTD) PTY
               </Link>
               <p className="text-slate-400 text-sm leading-relaxed">
                 We engineer enterprise-grade digital ecosystems. Specialized in Next.js, Cloud Architecture, and High-Performance Web Apps.
@@ -647,7 +647,7 @@ export default function Home() {
             <div>
               <h4 className="text-white font-bold mb-6">Navigation</h4>
               <ul className="space-y-3 text-sm text-slate-400">
-                <li><Link href="#home" className="hover:text-blue-500 transition-colors">Home</Link></li>
+                <li><Link href="/" className="hover:text-blue-500 transition-colors">Home</Link></li>
                 <li><Link href="#about" className="hover:text-blue-500 transition-colors">About Us</Link></li>
                 <li><Link href="#projects" className="hover:text-blue-500 transition-colors">Projects</Link></li>
                 <li><Link href="/consultation" className="hover:text-blue-500 transition-colors">Contact</Link></li>
@@ -671,7 +671,7 @@ export default function Home() {
               <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-blue-600 shrink-0" />
-                  <span>admin@mktechcloud.co.za</span>
+                  <a href="mailto:kgaogelodeveloper@gmail.com" className="hover:text-blue-500 transition-colors">admin@mktechcloud.co.za</a>
                 </li>
                 <li className="flex items-start gap-3">
                   <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0" />

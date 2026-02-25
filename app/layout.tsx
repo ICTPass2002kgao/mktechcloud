@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     "Enterprise Software", "Web Development", "Mobile Apps", "Cloud Services", "Tech Consulting",
      "Custom Software", "Digital Transformation", "Software Architecture", "Tech Innovation",
       "Business Solutions", "Tech Ecosystem", "Software Engineering", "Tech Partnerships", "Tech Expertise", 
+      "Website development in limpopo, software development in limpopo, web development in limpopo, app development in limpopo, cloud services in limpopo, tech consulting in limpopo, custom software in limpopo, digital transformation in limpopo, software architecture in limpopo, tech innovation in limpopo, business solutions in limpopo, tech ecosystem in limpopo, software engineering in limpopo, tech partnerships in limpopo, tech expertise in limpopo",
       "Tech Leadership", "Tech Excellence"],
       icons: {
         icon: "/mktechcloud.png",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
       },
   openGraph: {
     title: "MK TECHCLOUD | Enterprise Digital Solutions ",
-    description: "Architecting digital ecosystems that empower South African businesses.",
+    description: "Building digital ecosystems that empower South African businesses.",
     url: "https://www.mktechcloud.co.za",
     siteName: "MK TECHCLOUD",
     locale: "en_ZA",
