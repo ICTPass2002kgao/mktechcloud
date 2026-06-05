@@ -36,7 +36,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html  className="scroll-smooth">
       <body className={`${poppins.variable} font-sans bg-slate-950 text-slate-200 antialiased`}>
         {children}
       </body>

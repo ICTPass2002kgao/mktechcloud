@@ -121,14 +121,25 @@ const services = [
   },
 ];
 
+// To add future clients, simply copy one of the objects inside this array 
+// and paste it at the top or bottom of the list with the new details.
 const projects = [
+  {
+    name: "Pure Roots Hair",
+    category: "Web Development",
+    description: "Digital presence and platform built for Pure Roots Hair.",
+    image: "/purerootS.JPG", 
+    link: "https://purerootshair.co.za/",
+    tech: ["Next.js", "Web"],
+  },
+
   {
     name: "Dankie",
     category: "The TACT system",
     description: "A high-performance PWA demonstrating real-time user interaction and seamless mobile adaptation.",
     image: "/dankie.PNG", 
-    link: "https://dankie-website.web.app/",
-    tech: ["Flutter", "DJANGO", "Paystack", "AWS"],
+    link: "https://dankiemobile.org.za/",
+    tech: ["Flutter", "DJANGO", "Paystack", "AWS","Firebase"],
   },
 ];
 
@@ -169,8 +180,7 @@ export default function Home() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "#about" },
-    { name: "Projects", href: "#projects" },
+    { name: "About Us", href: "#about" }, 
     { name: "Services", href: "#services" },
     { name: "Contact", href: "#contact" },
   ];
