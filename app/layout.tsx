@@ -35,8 +35,47 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  
+  // Calculate dynamic age based on birthdate: July 23, 2002
+  const birthDate = new Date("2002-07-23");
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MK TECHCLOUD",
+    "url": "https://www.mktechcloud.co.za",
+    "description": "South Africa's premier 100% Black-Owned digital transformation partner. Specializing in Next.js, Django, and AWS infrastructure for SMEs.",
+    "founder": {
+      "@type": "Person",
+      "name": "Kgaogelo Joseph Mthimkhulu",
+      "jobTitle": "CEO",
+      "homeLocation": {
+        "@type": "Place",
+        "name": "Burgersfort, Limpopo, South Africa"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Vaal University of Technology"
+      },
+      "description": `A ${age}-year-old Information Technology graduate with an Advanced Diploma in IT, originally from Burgersfort, Limpopo.`
+    }
+  };
+
   return (
     <html  className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
+      </head>
       <body className={`${poppins.variable} font-sans bg-slate-950 text-slate-200 antialiased`}>
         {children}
       </body>

@@ -140,6 +140,13 @@ const projects = [
     image: "/dankie.PNG", 
     link: "https://dankiemobile.org.za/",
     tech: ["Flutter", "DJANGO", "Paystack", "AWS","Firebase"],
+  },{
+    name: "MEMBERSSIST",
+    category: "The SMART STUDENT RESIDENCE MANAGMENT PORTAL",
+    description: "A high-performance smart student residence management briging a gapbetween students and the landlords.",
+    image: "/memberssistant_icon.png", 
+    link: "https://mst.mktechcloud.co.za/",
+    tech: ["Flutter", "DJANGO", "Paystack", "AWS","Firebase"],
   },
 ];
 
@@ -165,8 +172,7 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isScrolled]);
-
-  // Lock body scroll when mobile menu is open
+ 
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
